@@ -132,6 +132,25 @@
   version = "v1.2.0"
 
 [[projects]]
+  digest = "1:1e4c455ec33f97fd588418a3c3575518f7eeb9af6d6fdb865b68d37310512e21"
+  name = "github.com/sendgrid/rest"
+  packages = ["."]
+  pruneopts = "UT"
+  revision = "e6147b72f79c9e2cb3f12caafa5aad50508677cf"
+  version = "2.6.0"
+
+[[projects]]
+  digest = "1:b1e8774644ccb9b457d9234975114f350ae184a65f7189e82257d2926bfe3e17"
+  name = "github.com/sendgrid/sendgrid-go"
+  packages = [
+    ".",
+    "helpers/mail",
+  ]
+  pruneopts = "UT"
+  revision = "dcf577333ebfa1c31922d1d857ff4a9acf623208"
+  version = "3.5.4"
+
+[[projects]]
   branch = "master"
   digest = "1:b93a29f8a4ffdd5720e066c64bdde885a8a574c2a649c420fb52f6935854cccf"
   name = "github.com/wilsontwm/user-registration"
@@ -166,6 +185,8 @@
     "github.com/gorilla/handlers",
     "github.com/gorilla/mux",
     "github.com/joho/godotenv",
+    "github.com/sendgrid/sendgrid-go",
+    "github.com/sendgrid/sendgrid-go/helpers/mail",
     "github.com/wilsontwm/user-registration",
     "gopkg.in/go-playground/validator.v9",
   ]

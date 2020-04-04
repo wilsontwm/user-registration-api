@@ -5,7 +5,8 @@ import (
 	"github.com/wilsontwm/user-registration"
 	"gopkg.in/go-playground/validator.v9"
 	"net/http"
-	_ "user-registration-api/models"
+	"os"
+	"user-registration-api/models"
 	"user-registration-api/utils"
 )
 
@@ -102,6 +103,27 @@ var Signup = func(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
+	// Send email
+	if models.IsActivationRequired {
+		link := os.Getenv("app_url") + "/activate/" + *user.ActivationCode
+		subject := os.Getenv("app_name") + " - Activate your account"
+		plainText := "Hi " + user.Name + ", thank you for signing up with us. Please visit " + link + " to activate your account."
+		htmlText := `<td style="font-size:6px; line-height:10px; padding:0px 0px 0px 0px;" valign="top" align="center">
+					<img class="max-width" border="0" style="display:block; color:#000000; text-decoration:none; font-family:Helvetica, arial, sans-serif; font-size:16px; max-width:100% !important; width:100%; height:auto !important;" width="600" alt="" data-proportionally-constrained="true" data-responsive="true" src="https://miro.medium.com/max/1400/1*30aoNxlSnaYrLhBT0O1lzw.png">
+					</td>
+					<div style="font-family: inherit; text-align: inherit">Hi ` + user.Name + `,</div>
+					<div style="font-family: inherit; text-align: inherit"><br></div>
+					<div style="font-family: inherit; text-align: inherit">Thank you for registering with us. Please click the button below to activate your account.</div>
+					<div style="font-family: inherit; text-align: inherit"><br></div>
+					<td align="center" bgcolor="#418ed4" class="inner-td" style="border-radius:6px; font-size:16px; text-align:center; background-color:inherit;">
+					<a href="` + link + `" style="background-color:#418ed4; border:0px solid #4783af; border-color:#4783af; border-radius:6px; border-width:0px; color:#ffffff; display:inline-block; font-size:14px; font-weight:normal; letter-spacing:0px; line-height:normal; padding:12px 18px 12px 18px; text-align:center; text-decoration:none; border-style:solid;" target="_blank">Activate Account</a>
+					</td>
+					<div style="font-family: inherit; text-align: inherit">Thank you,</div>
+					<div style="font-family: inherit; text-align: inherit">` + os.Getenv("app_name") + `</div>`
+
+		go utils.Email(user.Name, user.Email, subject, plainText, htmlText)
+	}
+
 	utils.Success(w, http.StatusOK, resp, user, "")
 }
 
@@ -196,6 +218,25 @@ var ForgetPassword = func(w http.ResponseWriter, r *http.Request) {
 		utils.Fail(w, http.StatusBadRequest, resp, err.Error())
 		return
 	}
+
+	// Send email
+	link := os.Getenv("app_url") + "/resetpassword/" + *user.ResetPasswordCode
+	subject := os.Getenv("app_name") + " - Reset your password"
+	plainText := "Hi " + user.Name + ", we have recently received your request to reset password. Please visit " + link + " to reset your password."
+	htmlText := `<td style="font-size:6px; line-height:10px; padding:0px 0px 0px 0px;" valign="top" align="center">
+				<img class="max-width" border="0" style="display:block; color:#000000; text-decoration:none; font-family:Helvetica, arial, sans-serif; font-size:16px; max-width:100% !important; width:100%; height:auto !important;" width="600" alt="" data-proportionally-constrained="true" data-responsive="true" src="https://miro.medium.com/max/1400/1*30aoNxlSnaYrLhBT0O1lzw.png">
+				</td>
+				<div style="font-family: inherit; text-align: inherit">Hi ` + user.Name + `,</div>
+				<div style="font-family: inherit; text-align: inherit"><br></div>
+				<div style="font-family: inherit; text-align: inherit">We have recently received your request to reset password. Please click on the button below to reset password.</div>
+				<div style="font-family: inherit; text-align: inherit"><br></div>
+				<td align="center" bgcolor="#418ed4" class="inner-td" style="border-radius:6px; font-size:16px; text-align:center; background-color:inherit;">
+				<a href="` + link + `" style="background-color:#418ed4; border:0px solid #4783af; border-color:#4783af; border-radius:6px; border-width:0px; color:#ffffff; display:inline-block; font-size:14px; font-weight:normal; letter-spacing:0px; line-height:normal; padding:12px 18px 12px 18px; text-align:center; text-decoration:none; border-style:solid;" target="_blank">Activate Account</a>
+				</td>
+				<div style="font-family: inherit; text-align: inherit">Thank you,</div>
+				<div style="font-family: inherit; text-align: inherit">` + os.Getenv("app_name") + `</div>`
+
+	go utils.Email(user.Name, user.Email, subject, plainText, htmlText)
 
 	utils.Success(w, http.StatusOK, resp, user, "")
 }

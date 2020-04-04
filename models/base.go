@@ -4,7 +4,10 @@ import (
 	"github.com/joho/godotenv"
 	"github.com/wilsontwm/user-registration"
 	"os"
+	"strconv"
 )
+
+var IsActivationRequired = false
 
 // Initialization
 func init() {
@@ -12,6 +15,8 @@ func init() {
 	if err != nil {
 		panic(err)
 	}
+
+	IsActivationRequired, _ = strconv.ParseBool(os.Getenv("is_activation_required"))
 
 	// Start of initialization of the user registration module
 	dbConfig := userreg.DBConfig{
@@ -24,6 +29,6 @@ func init() {
 
 	tableName := "tests"
 	userreg.Initialize(dbConfig)
-	userreg.Config(userreg.TableName(tableName))
+	userreg.Config(userreg.TableName(tableName), userreg.UserActivation(IsActivationRequired))
 	// End of initialization of the user registration module
 }
