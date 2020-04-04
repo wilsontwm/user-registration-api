@@ -29,7 +29,7 @@ func main() {
 	router := mux.NewRouter()
 	setupRoutes(router)
 
-	port := os.Getenv("port")
+	port := os.Getenv("PORT")
 	if port == "" {
 		port = "8080"
 	}
