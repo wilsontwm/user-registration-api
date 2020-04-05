@@ -4,6 +4,10 @@
 
 This is a backend user registration and authentication system that is built using Go.
 
+## Demo
+
+[Live](https://userregapi.appspot.com)
+
 ## License
 
 The user-registration module is open-sourced software licensed under the [MIT license](http://opensource.org/licenses/MIT).

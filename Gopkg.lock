@@ -152,11 +152,11 @@
 
 [[projects]]
   branch = "master"
-  digest = "1:b93a29f8a4ffdd5720e066c64bdde885a8a574c2a649c420fb52f6935854cccf"
+  digest = "1:1b137993932b2d15049bd673b916cf0f6532a86caad2db3e028864c8ba2f966b"
   name = "github.com/wilsontwm/user-registration"
   packages = ["."]
   pruneopts = "UT"
-  revision = "65c4c214ef2929c6a29c2da3cef9dbdec0fe7c2c"
+  revision = "3ad145ccebd29a5428a2d23300c7768965007535"
 
 [[projects]]
   branch = "master"
@@ -168,7 +168,7 @@
     "md4",
   ]
   pruneopts = "UT"
-  revision = "0ec3e9974c59449edd84298612e9f16fa13368e8"
+  revision = "baeed622b8d86045ff442b324772b0ad306a2b3f"
 
 [[projects]]
   digest = "1:0e49ce3bb641491517ba5035619be50aa07619814665c9761d0decb48f35ea94"
